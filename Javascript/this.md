@@ -42,7 +42,7 @@ A();
 
 obj의 method인 `callname` **안**에 있는 함수 callme2(내부함수) 에서는 this로 전역객체를 잡는다.
 
-하지만 내부함수를 `arrow function`로 사용할 경우 상위 스코프인 callname1의 this에 바인딩된다
+하지만 내부함수를 `arrow function`로 사용할 경우 상위 스코프인 obj에 바인딩된다
 
 ```js
 var name = 'mnoko'
@@ -152,4 +152,79 @@ console.log("p2's name :", p2);
 >    (1) 반환문이 없는 경우, this에 바인딩된 새로 생성한 객체가 반환된다. 명시적으로 this를 반환하여도 결과는 같다.
 >
 >    (2) 반환문이 this가 아닌 다른 객체를 명시적으로 반환하는 경우, this가 아닌 해당 객체가 반환된다. 이때 this를 반환하지 않은 함수는 생성자 함수로서의 역할을 수행하지 못한다. 따라서 생성자 함수는 반환문을 명시적으로 사용하지 않는다.
+
+
+
+## 4. 결론 
+
+자바스크립트에서 `this` 는 다음과 같은 것들이 될 수 있다.
+
+1. 전역객체 (일반함수, 내부함수, 메소드 안의 함수)
+2. 객체 자기 자신 (생성자 함수에 의해 생성된 객체, 메소드 안)
+3. 상위 스코프의 this (화살표 함수)
+
+
+
+## 5. call, apply, bind
+
+이렇게 this는 함수가 어떤 방식으로 호출되느냐에 따라 달라지는데 자신이 원하는 것을 this로 설정할 수 있다.
+
+### 1. call, apply
+
+우선 call과 apply는 함수를 호출해 실행시킨 다는 것이 특징이다. 또한 인자가 없다면 this는 전역객체를 가리킨다
+
+```js
+obj1 = {
+    name: "mnoko",
+    callme: function() {
+        console.log(this.name)
+    }
+}
+
+obj2 = {
+    name: "zaqwes"
+}
+
+obj1.callme();
+obj1.callme.call()
+obj1.callme.call(obj2)
+
+// console>> mnoko
+// console>> mnoko
+// console>> zaqwes
+```
+
+
+
+### 2. bind
+
+이와 다르게 bind의 경우 함수를 호출하지 않고 반환만 한다
+
+```js
+var name = "global name"
+
+obj1 = {
+    name: "mnoko",
+    callme: function() {
+        console.log(this.name)
+    }
+}
+
+obj2 = {
+    name: "zaqwes"
+}
+
+
+obj1.callme.apply();
+
+f1 = obj1.callme.bind(obj2)
+f1()
+
+f2 = obj1.callme.bind();
+f2()
+
+// console>> global name
+// console>> zaqwes
+// console>> global name
+```
 
