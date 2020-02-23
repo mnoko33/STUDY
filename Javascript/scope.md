@@ -152,7 +152,7 @@ B.f2()
 
 ```js
 var foo = function() {
-	var name = "mnoko"
+    var name = "mnoko"
     var age = 999
     function sayName() {
         console.log(name)
