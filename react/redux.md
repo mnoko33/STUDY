@@ -40,7 +40,7 @@
 
 ### 3. Reducer
 
-store의 문지기와 비슷한 역할을 하는 존재로 이전 상태와 Action을 합쳐 새로운 state를 만드는 조작을 의미
+store의 문지기역할을 하는 존재로 이전 상태와 Action을 합쳐 새로운 state를 만드는 조작을 의미
 
 ```react
 import { ADD_VALUE } from './actions';
